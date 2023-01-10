@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">基于Python3开发，致力于数据安全备份</h4>
+<h4 align="center">基于Python3开发的轻量级数据库全量备份系统</h4>
 
 ## ✨ 特性
 - 支持 MySQL Oracle SQLServer PostgreSQL SQLite Hive 多种类型数据库备份
