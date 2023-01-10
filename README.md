@@ -15,7 +15,7 @@
 - 支持自定义备份文件存储路径
 - 支持自定义保存备份文件数量
 ## ⚙️ 配置
-运行前需配置application.yml文件，信息如下：
+运行前需配置application.yml文件，信息如下：<br />
 注意：如果采用Docker方式启动程序，环境变量配置高于application.yml文件配置！
 ```yaml
 database:             # 数据库配置项
