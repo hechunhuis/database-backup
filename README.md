@@ -16,6 +16,7 @@
 - 支持自定义保存备份文件数量
 ## ⚙️ 配置
 运行前需配置application.yml文件，信息如下：
+注意：如果采用Docker方式启动程序，环境变量配置高于application.yml文件配置！
 ```yaml
 database:             # 数据库配置项
   type: MySQL       # 需要备份的数据库类型：MySQL Oracle SQLServer PostgreSQL SQLite Hive
