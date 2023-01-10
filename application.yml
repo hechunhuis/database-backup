@@ -1,0 +1,11 @@
+database:             # 数据库配置项
+  type: MySQL       # 需要备份的数据库类型：MySQL Oracle SQLServer PostgreSQL SQLite Hive
+  url: 127.0.0.1    # 数据库的地址
+  port: 3306        # 数据库端口
+  username: root    # 数据库用户名
+  password: root    # 数据库密码
+  databaseName:     # 需要备份的数据库名称
+  savePath:         # 备份至目标目录 例如：/mnt/dbback\
+  backMax: 20       # 备份保留的最大文件数
+  regEx:            # 备份符合正则表达式的表名
+  cron:             # 备份的时间表达式
