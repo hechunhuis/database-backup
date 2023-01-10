@@ -42,9 +42,21 @@ python3 main.py
 
 ## Docker构建
 ```shell
-docker build……
+docker build -f DOckerfile -t databaseback/core:lastest
 ```
 ## Docker启动
 ```shell
-docker run ……
+docker run \
+  --name databaseback \
+  -e database.type=MySQL \
+  -e database.url=127.0.0.1 \
+  -e database.port=3306 \
+  -e database.username=root \
+  -e database.password=root \
+  -e database.databaseName=tableName \
+  -e database.savePath=/mnt \
+  -e database.backMax=20 \
+  -e database.regEx=^\w+$ \
+  -e database.cron=* 2 5 4 3 \
+  -d databaseback/core:lastest
 ```
