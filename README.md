@@ -42,7 +42,7 @@ python3 main.py
 
 ## Docker构建
 ```shell
-docker build -f DOckerfile -t databaseback/core:lastest
+docker build -f Dockerfile -t databaseback/core:lastest
 ```
 ## Docker启动
 ```shell
