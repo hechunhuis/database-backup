@@ -9,5 +9,5 @@ database:              # 数据库配置项
   databaseName: toprie # 需要备份的数据库名称
   charset: utf-8
   backMax: 20          # 备份保留的最大文件数
-  regEx: \S+           # 备份符合正则表达式的表名
-  cron: 03 * * * *     # 备份的时间表达式(五位数)
+  regEx: \w+           # 备份符合正则表达式的表名
+  cron: 53 * * * *     # 备份的时间表达式(五位数)

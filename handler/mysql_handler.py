@@ -18,6 +18,9 @@ class MysqlHandler():
         if not os.path.exists(backPath) :
             os.makedirs(backPath)
         regTables = self.filter_tables_by_regex(self.get_all_tables())
+        if (regTables.isspace()) :
+            logger.info("数据库名为：%s 过滤后需要备份的表为空！"%database_config.get_database_name())
+            return
         backFileName = time.strftime("%Y-%m-%d-%H_%M_%S.sql", time.localtime())
         dump_sql = 'mysqldump --no-tablespaces -h%s -P%s -u%s -p%s %s %s > %s'%(
             self._database_config.get_url(),
@@ -39,7 +42,8 @@ class MysqlHandler():
         '''
         result = " "
         for table_name in tables:
-            if re.search(self._database_config.get_reg_ex(), table_name.get("TABLE_NAME")) == table_name:
+            searchTable = re.match(self._database_config.get_reg_ex(), table_name.get("TABLE_NAME"), re.M|re.I).span()
+            if searchTable and searchTable[1] == len(table_name.get("TABLE_NAME")):
                 result = result + table_name + " "
         return result
 
