@@ -34,7 +34,8 @@ class Handler():
 
     def create_mysql_task(self, handler:MysqlHandler):
         self._logger.info("create schedule task ……")
-        self._sched.add_job(handler.dump(self._database_config), CronTrigger.from_crontab(self._database_config.get_reg_ex()))
+        self._sched.add_job(func=handler.dump, trigger=CronTrigger.from_crontab(self._database_config.get_cron()) ,args=(self._database_config,))
+        self._sched.start()
         self._logger.info("create schedule success")
 
     def create_oracle_task(self, handler:OracleHandler):

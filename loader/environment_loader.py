@@ -36,6 +36,6 @@ class EnvironmentLoader() :
         database_config.set_reg_ex(_reg_ex if _reg_ex != None else database_config.get_reg_ex())
         database_config.set_cron(_cron if _cron != None else database_config.get_cron())
 
-        logger.info(database_config)
+        logger.info(database_config.__dict__)
         logger.info("load environment success!")
         return database_config
