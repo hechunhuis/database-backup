@@ -43,11 +43,11 @@ pip install -i https://pypi.doubanio.com/simple/ -r requirements.txt
 python3 main.py
 ```
 
-## Docker构建
+## ⛏ Docker构建
 ```shell
 docker build -f Dockerfile -t databaseback/core:lastest
 ```
-## Docker启动
+## 🚴🏻‍♀️ Docker启动
 ```shell
 docker run \
   --name databaseback \
