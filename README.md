@@ -12,7 +12,6 @@
 - 支持 MySQL Oracle SQLServer PostgreSQL SQLite Hive 多种类型数据库备份
 - 支持自定义cron备份规则
 - 支持正则表达式匹配数据库表备份
-- 支持自定义备份文件存储路径
 - 支持自定义保存备份文件数量
 ## ⚙️ 配置
 运行前需配置application.yml文件，信息如下：<br />
