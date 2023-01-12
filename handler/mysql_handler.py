@@ -44,7 +44,7 @@ class MysqlHandler():
         for table_name in tables:
             searchTable = re.match(self._database_config.get_table_regEx(), table_name.get("TABLE_NAME"), re.M|re.I).span()
             if searchTable and searchTable[1] == len(table_name.get("TABLE_NAME")):
-                result = result + table_name + " "
+                result = result + table_name.get("TABLE_NAME") + " "
         return result
 
     def get_all_tables(self):

@@ -37,7 +37,7 @@ class DataBaseConfig() :
         self._password = configInfoDict.get("database").get("password")
         self._database_name = configInfoDict.get("database").get("databaseName")
         self._charset = configInfoDict.get("database").get("charset")
-        self._backMax = configInfoDict.get("database").get("backMax")
+        self._back_max = configInfoDict.get("database").get("backMax")
         self._table_regEx = configInfoDict.get("database").get("table").get("regEx")
         self._cron = configInfoDict.get("database").get("cron")
 
