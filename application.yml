@@ -2,12 +2,13 @@ database:              # 数据库配置项
   application:         # 应用程序配置项
     name: application  # 需要备份数据库所属应用名称
   type: MySQL          # 需要备份的数据库类型：MySQL Oracle SQLServer PostgreSQL SQLite Hive
-  url: 127.0.0.1       # 数据库的地址
+  host: 127.0.0.1      # 数据库的地址
   port: 3306           # 数据库端口
   username: root       # 数据库用户名
   password: root       # 数据库密码
-  databaseName: toprie # 需要备份的数据库名称
+  databaseName: dbname # 需要备份的数据库名称
   charset: utf-8
   backMax: 20          # 备份保留的最大文件数
-  regEx: \w+           # 备份符合正则表达式的表名
+  table:
+    regEx: \w+         # 备份符合正则表达式的表名
   cron: 53 * * * *     # 备份的时间表达式(五位数)

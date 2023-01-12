@@ -44,21 +44,22 @@ python3 main.py
 
 ## ⛏ Docker构建
 ```shell
-docker build -f Dockerfile -t databaseback/core:lastest
+docker build . -f Dockerfile.core -t databaseback/core:lastest
 ```
 ## 🚴🏻‍♀️ Docker启动
 ```shell
-docker run \
-  --name databaseback \
-  -e database.application.name=your application name \
-  -e database.type=MySQL \
-  -e database.url=127.0.0.1 \
-  -e database.port=3306 \
-  -e database.username=root \
-  -e database.password=root \
-  -e database.databaseName=tableName \
-  -e database.backMax=20 \
-  -e database.regEx=^\S+$ \
-  -e database.cron=0 0 12 * * ? \
-  -d databaseback/core:lastest
+docker run --name databaseback \
+ -e database.application.name=applicationName \
+ -e database.type=MySQL \
+ -e database.host=127.0.0.1 \
+ -e database.port=3306 \
+ -e database.username=root \
+ -e database.password=root \
+ -e database.databaseName=dbName \
+ -e database.backMax=20 \
+ -e database.table.regEx=^\w+$ \
+ -e database.cron='15 * * * *' \
+ -v D:\dback:/app/dbback \
+ -v D:\logs:/app/logs \
+ -d databaseback/core:lastest
 ```

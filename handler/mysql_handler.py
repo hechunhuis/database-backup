@@ -23,7 +23,7 @@ class MysqlHandler():
             return
         backFileName = time.strftime("%Y-%m-%d-%H_%M_%S.sql", time.localtime())
         dump_sql = 'mysqldump --no-tablespaces -h%s -P%s -u%s -p%s %s %s > %s'%(
-            self._database_config.get_url(),
+            self._database_config.get_host(),
             self._database_config.get_port(),
             self._database_config.get_username(),
             self._database_config.get_password(),
@@ -42,7 +42,7 @@ class MysqlHandler():
         '''
         result = " "
         for table_name in tables:
-            searchTable = re.match(self._database_config.get_reg_ex(), table_name.get("TABLE_NAME"), re.M|re.I).span()
+            searchTable = re.match(self._database_config.get_table_regEx(), table_name.get("TABLE_NAME"), re.M|re.I).span()
             if searchTable and searchTable[1] == len(table_name.get("TABLE_NAME")):
                 result = result + table_name + " "
         return result
@@ -52,7 +52,7 @@ class MysqlHandler():
         获取数据库的所有表名
         '''
         connect = pymysql.Connect(
-            host=self._database_config.get_url(),
+            host=self._database_config.get_host(),
             port=self._database_config.get_port(),
             user=self._database_config.get_username(),
             password=self._database_config.get_password(),
@@ -61,6 +61,6 @@ class MysqlHandler():
         cur = connect.cursor(cursor=pymysql.cursors.DictCursor)
         select_table_name_sql = 'SELECT table_name FROM information_schema.tables where table_schema="%s";'%(self._database_config.get_database_name())
         cur.execute(select_table_name_sql)
-        talbes = cur.fetchall()
+        tables = cur.fetchall()
         connect.close()
-        return talbes
+        return tables

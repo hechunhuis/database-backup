@@ -18,19 +18,13 @@ class Handler():
         创建任务
         '''
         self._database_config = database_config
-        match self._database_config.get_type():
-            case "MySQL": 
-                self.create_mysql_task(MysqlHandler())
-            case "Oracle": 
-                self.create_oracle_task(OracleHandler())
-            case "SQLServer":
-                print("暂未开放")
-            case "PostgreSQL":
-                print("暂未开放")
-            case "SQLite":
-                print("暂未开放")
-            case "Hive":
-                print("暂未开放")
+        dbType = self._database_config.get_type()
+        if "MySQL" == dbType:
+            self.create_mysql_task(MysqlHandler())
+        elif "Oracle" == dbType:
+            self.create_oracle_task(OracleHandler())
+        else:
+            self._logger.info("%s 类型数据库备份暂未开放！"%dbType)
 
     def create_mysql_task(self, handler:MysqlHandler):
         self._logger.info("create schedule task ……")
