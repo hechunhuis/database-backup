@@ -56,17 +56,17 @@ class DataBaseConfig() :
         _reg_ex = os.getenv("database.regEx")
         _cron = os.getenv("database.cron")
 
-        self._application_name = _application_name if _application_name != None else self._application_name()
-        self._type = _type if _type != None else self._type()
-        self._url = _url if _url != None else self._url()
-        self._port = _port if _port != None else self._port()
-        self._username = _username if _username != None else self._username()
-        self._password = _password if _password != None else self._password()
-        self._database_name = _database_name if _database_name != None else self._database_name()
-        self._charset = _charset if _charset != None else self._charset()
-        self._back_max = _back_max if _back_max != None else self._back_max()
-        self._reg_ex = _reg_ex if _reg_ex != None else self._reg_ex()
-        self._cron = _cron if _cron != None else self._cron()
+        self._application_name = _application_name if _application_name != None else self._application_name
+        self._type = _type if _type != None else self._type
+        self._url = _url if _url != None else self._url
+        self._port = _port if _port != None else self._port
+        self._username = _username if _username != None else self._username
+        self._password = _password if _password != None else self._password
+        self._database_name = _database_name if _database_name != None else self._database_name
+        self._charset = _charset if _charset != None else self._charset
+        self._back_max = _back_max if _back_max != None else self._back_max
+        self._reg_ex = _reg_ex if _reg_ex != None else self._reg_ex
+        self._cron = _cron if _cron != None else self._cron
 
         logger.info(self.__dict__)
         logger.info("load environment success!")
