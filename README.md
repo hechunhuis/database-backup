@@ -11,7 +11,13 @@
 ![系统运行日志](./.github/static/images/log.jpg)
 
 ## ✨ 特性
-- 支持 MySQL Oracle SQLServer PostgreSQL SQLite Hive 多种类型数据库备份
+- 支持的数据库列表
+  - MySQL
+  - Oracle 待开发
+  - SQLServer 待开发
+  - PostgreSQL 待开发
+  - SQLite 待开发
+  - Hive 待开发
 - 支持自定义cron备份规则
 - 支持正则表达式匹配数据库表备份
 - 支持自定义保存备份文件数量
