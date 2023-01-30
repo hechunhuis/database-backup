@@ -9,9 +9,6 @@
 <h4 align="center">基于Python3开发的轻量级数据库全量备份系统</h4>
 
 ![系统运行日志](./.github/static/images/log.jpg)
-<h1 align="center">
-  <img src="./.github/static/images/backfile.png" width="600"/>
-</h1>
 
 ## ✨ 特性
 - 支持的数据库列表
@@ -84,7 +81,7 @@ docker run --name databaseback \
  -e database.backMax=20 \
  -e database.table.regEx=^\w+$ \
  -e database.cron='15 * * * *' \
- -v D:\dback:/app/dbback \
- -v D:\logs:/app/logs \
+ -v D:\dback:/app/dbback \ # 备份文件所在目录
+ -v D:\logs:/app/logs \    # 系统运行日志
  -d databaseback/core:lastest
 ```
