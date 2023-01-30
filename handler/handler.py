@@ -15,6 +15,7 @@ class Handler():
     _database_config = None
     _application_config = None
     _logger = LoggerUtil().getLogger("database-backup")
+    _create_dump_flag = False
 
     def create_task(self, database_config:DataBaseConfig, application_config:ApplicationConfig) :
         '''
@@ -27,22 +28,49 @@ class Handler():
         dbType = self._database_config.get_type()
         self._logger.info("开始创建定时备份数据库为 %s 类型任务"%dbType)
         if "MySQL" == dbType:
-            self.create_mysql_task(MysqlHandler())
+            self._create_dump_flag = self.create_mysql_task(MysqlHandler())
         elif "Oracle" == dbType:
-            self.create_oracle_task(OracleHandler())
+            self._create_dump_flag = self.create_oracle_task(OracleHandler())
         else:
             self._logger.info("%s 类型数据库备份暂未开放！"%dbType)
+
+        if self._create_dump_flag:
+            self.create_clear_back_task()
+
         self._logger.info("创建定时备份数据库为 %s 类型任务成功"%dbType)
         self._logger.info("开始执行定时任务……，定时配置为 %s"%self._database_config.get_cron())
         self._sched.start()
         
-        
     def create_mysql_task(self, handler:MysqlHandler):
-        self._sched.add_job(func=handler.dump, trigger=CronTrigger.from_crontab(self._database_config.get_cron()) ,args=(self._database_config,self._application_config,))
-        self.create_clear_back_task()
-
+        '''
+        创建mysql定时备份任务
+        '''
+        if not self.check_database_connect(handler): return False
+        try:
+            self._sched.add_job(func=handler.dump, trigger=CronTrigger.from_crontab(self._database_config.get_cron()) ,args=(self._database_config,self._application_config,))
+            return True
+        except Exception:
+            self._logger.error("创建定时备份Mysql任务失败！")
+            return False
+    
     def create_oracle_task(self, handler:OracleHandler):
+        '''
+        创建Oracle定时任务
+        '''
         pass
+
+    def check_database_connect(self, handler):
+        '''
+        测试数据库的连通性
+        '''
+        connect = handler.get_connection()
+        if connect == None:
+            self._logger.error("测试数据库连接失败，连接信息：%s"%self._database_config.__dict__)
+            return False
+        else:
+            self._logger.info("测试数据库连接成功，连接信息：%s"%self._database_config.__dict__)
+            handler.close_conection(connect)
+            return True
 
     def create_clear_back_task(self):
         '''

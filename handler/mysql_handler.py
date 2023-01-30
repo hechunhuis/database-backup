@@ -10,20 +10,21 @@ class MysqlHandler():
     _database_config = None
     _application_config = None
 
+    def __init__(self, database_config:DataBaseConfig, applcation_config:ApplicationConfig) -> None:
+        self._database_config = database_config
+        self._application_config = applcation_config
+        
     def dump(self, database_config:DataBaseConfig, applcation_config:ApplicationConfig):
         '''
         数据库备份
         '''
         logger = LoggerUtil().getLogger("database-backup")
-        self._database_config = database_config
-        self._application_config = applcation_config
-
-        backPath = os.path.join(os.path.dirname(os.path.realpath(__file__)).replace("handler", "dbback"), applcation_config.get_name())
+        backPath = os.path.join(os.path.dirname(os.path.realpath(__file__)).replace("handler", "dbback"), self._application_config.get_name())
         if not os.path.exists(backPath) :
             os.makedirs(backPath)
         regTables = self.filter_tables_by_regex(self.get_all_tables())
         if (regTables.isspace()) :
-            logger.info("数据库名为：%s 过滤后需要备份的表为空！"%database_config.get_database_name())
+            logger.info("数据库名为：%s 过滤后需要备份的表为空！"%self._database_config.get_database_name())
             return
         backFileName = time.strftime("%Y-%m-%d-%H_%M_%S.sql", time.localtime())
         dump_sql = 'mysqldump --no-tablespaces -h%s -P%s -u%s -p%s %s %s > %s'%(
@@ -55,16 +56,25 @@ class MysqlHandler():
         '''
         获取数据库的所有表名
         '''
-        connect = pymysql.Connect(
-            host=self._database_config.get_host(),
-            port=self._database_config.get_port(),
-            user=self._database_config.get_username(),
-            password=self._database_config.get_password(),
-            db=self._database_config.get_database_name()
-        )
+        connect = self.get_connection()
         cur = connect.cursor(cursor=pymysql.cursors.DictCursor)
         select_table_name_sql = 'SELECT table_name FROM information_schema.tables where table_schema="%s";'%(self._database_config.get_database_name())
         cur.execute(select_table_name_sql)
         tables = cur.fetchall()
-        connect.close()
+        self.close_conection(connect)
         return tables
+
+    def get_connection(self):
+        try:
+            return pymysql.Connect(
+                host=self._database_config.get_host(),
+                port=self._database_config.get_port(),
+                user=self._database_config.get_username(),
+                password=self._database_config.get_password(),
+                db=self._database_config.get_database_name()
+            )
+        except Exception:
+            return None
+    
+    def close_conection(self, connect):
+        connect.close()
