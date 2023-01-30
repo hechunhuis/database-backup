@@ -3,7 +3,6 @@ import yaml, os
 
 class DataBaseConfig() :
 
-    _application_name = None
     _type = None
     _host = None
     _port = None
@@ -29,7 +28,6 @@ class DataBaseConfig() :
         logger = LoggerUtil().getLogger("database-backup")
         logger.info("load application file success!")
         logger.info(configInfoDict)
-        self._application_name = configInfoDict.get("database").get("application").get("name")
         self._type = configInfoDict.get("database").get("type")
         self._host = configInfoDict.get("database").get("host")
         self._port = configInfoDict.get("database").get("port")
@@ -44,7 +42,6 @@ class DataBaseConfig() :
     def load_env(self) :
         logger = LoggerUtil().getLogger("database-backup")
         logger.info("load environment ……")
-        _application_name = os.getenv("database.application.name")
         _type = os.getenv("database.type")
         _host = os.getenv("database.host")
         _port = os.getenv("database.port")
@@ -56,7 +53,6 @@ class DataBaseConfig() :
         _table_regEx = os.getenv("database.table.regEx")
         _cron = os.getenv("database.cron")
 
-        self._application_name = _application_name if _application_name != None else self._application_name
         self._type = _type if _type != None else self._type
         self._host = _host if _host != None else self._host
         self._port = _port if _port != None else self._port
@@ -70,12 +66,6 @@ class DataBaseConfig() :
 
         logger.info(self.__dict__)
         logger.info("load environment success!")
-
-    def set_application_name(self, application_name:str) :
-        self._application_name = application_name
-
-    def get_application_name(self) :
-        return self._application_name
 
     def set_type(self, type:str) :
         self._type = type

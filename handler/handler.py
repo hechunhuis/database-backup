@@ -1,6 +1,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 from entity.config.database_config import DataBaseConfig
+from entity.config.application_config import ApplicationConfig
 from handler.mysql_handler import MysqlHandler
 from handler.oracle_handler import OracleHandler
 from utils.logger_util import LoggerUtil
@@ -12,14 +13,17 @@ class Handler():
     '''
     _sched = BlockingScheduler()
     _database_config = None
+    _application_config = None
     _logger = LoggerUtil().getLogger("database-backup")
 
-    def create_task(self, database_config:DataBaseConfig) :
+    def create_task(self, database_config:DataBaseConfig, application_config:ApplicationConfig) :
         '''
         创建任务
         '''
         
         self._database_config = database_config
+        self._application_config = application_config
+
         dbType = self._database_config.get_type()
         self._logger.info("开始创建定时备份数据库为 %s 类型任务"%dbType)
         if "MySQL" == dbType:
@@ -34,7 +38,7 @@ class Handler():
         
         
     def create_mysql_task(self, handler:MysqlHandler):
-        self._sched.add_job(func=handler.dump, trigger=CronTrigger.from_crontab(self._database_config.get_cron()) ,args=(self._database_config,))
+        self._sched.add_job(func=handler.dump, trigger=CronTrigger.from_crontab(self._database_config.get_cron()) ,args=(self._database_config,self._application_config,))
         self.create_clear_back_task()
 
     def create_oracle_task(self, handler:OracleHandler):
@@ -53,7 +57,7 @@ class Handler():
         根据配置保留备份最大数，清除多余备份文件
         '''
         currentPath = os.path.dirname(os.path.realpath(__file__))
-        dbbackPath = os.path.join(currentPath.replace("handler","dbback"), self._database_config.get_application_name())
+        dbbackPath = os.path.join(currentPath.replace("handler","dbback"), self._application_config.get_name())
         backFiles = os.listdir(dbbackPath)
         count = len(backFiles) - int(self._database_config.get_back_max())
         clearFiles = []

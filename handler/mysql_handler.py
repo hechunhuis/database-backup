@@ -1,4 +1,5 @@
 from entity.config.database_config import DataBaseConfig
+from entity.config.application_config import ApplicationConfig
 import os, pymysql, re, time
 from utils.logger_util import LoggerUtil
 
@@ -7,14 +8,17 @@ class MysqlHandler():
     mysql处理器
     '''
     _database_config = None
+    _application_config = None
 
-    def dump(self, database_config:DataBaseConfig):
+    def dump(self, database_config:DataBaseConfig, applcation_config:ApplicationConfig):
         '''
         数据库备份
         '''
         logger = LoggerUtil().getLogger("database-backup")
         self._database_config = database_config
-        backPath = os.path.join(os.path.dirname(os.path.realpath(__file__)).replace("handler", "dbback"), database_config.get_application_name())
+        self._application_config = applcation_config
+
+        backPath = os.path.join(os.path.dirname(os.path.realpath(__file__)).replace("handler", "dbback"), applcation_config.get_name())
         if not os.path.exists(backPath) :
             os.makedirs(backPath)
         regTables = self.filter_tables_by_regex(self.get_all_tables())

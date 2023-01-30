@@ -1,4 +1,5 @@
 from entity.config.database_config import DataBaseConfig
+from entity.config.application_config import ApplicationConfig
 from utils.logger_util import LoggerUtil
 from handler.handler import Handler
 import os
@@ -9,5 +10,5 @@ logger = LoggerUtil().getLogger("database-backup")
 logger.info(open(currentPath + "/.github/logo.txt").read())
 logger.info("application start……")
 
-Handler().create_task(DataBaseConfig(configPath))
+Handler().create_task(DataBaseConfig(configPath), ApplicationConfig(configPath))
 logger.info("application success")

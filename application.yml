@@ -1,6 +1,7 @@
+application:           # 应用程序配置项
+  name: application    # 需要备份数据库所属应用名称
+
 database:              # 数据库配置项
-  application:         # 应用程序配置项
-    name: application  # 需要备份数据库所属应用名称
   type: MySQL          # 需要备份的数据库类型：MySQL Oracle SQLServer PostgreSQL SQLite Hive
   host: 127.0.0.1      # 数据库的地址
   port: 3306           # 数据库端口
