@@ -19,9 +19,10 @@
 运行前需配置application.yml文件，信息如下：<br />
 注意：如果采用Docker方式启动程序，环境变量配置高于application.yml文件配置！
 ```yaml
+application:           # 应用程序配置项
+  name: application    # 需要备份数据库所属应用名称
+
 database:              # 数据库配置项
-  application:         # 应用程序配置项
-    name: application  # 需要备份数据库所属应用名称
   type: MySQL          # 需要备份的数据库类型：MySQL Oracle SQLServer PostgreSQL SQLite Hive
   host: 127.0.0.1      # 数据库的地址
   port: 3306           # 数据库端口
@@ -52,7 +53,7 @@ docker build . -f Dockerfile.core -t databaseback/core:lastest
 ## 🚴🏻‍♀️ Docker启动
 ```shell
 docker run --name databaseback \
- -e database.application.name=applicationName \
+ -e application.name=applicationName \
  -e database.type=MySQL \
  -e database.host=127.0.0.1 \
  -e database.port=3306 \
