@@ -15,25 +15,37 @@
 - 支持自定义cron备份规则
 - 支持正则表达式匹配数据库表备份
 - 支持自定义保存备份文件数量
+- 支持将备份文件发送到远程备份主机（待开发）
+- 支持发送定时备份通知（待开发）
 ## ⚙️ 配置
 运行前需配置application.yml文件，信息如下：<br />
 注意：环境变量配置高于application.yml文件配置！
 ```yaml
-application:           # 应用程序配置项
-  name: application    # 需要备份数据库所属应用名称
+application:            # 应用程序模块
+  name: application     # 需要备份数据库所属的应用名称
 
-database:              # 数据库配置项
-  type: MySQL          # 需要备份的数据库类型：MySQL Oracle SQLServer PostgreSQL SQLite Hive
-  host: 127.0.0.1      # 数据库的地址
-  port: 3306           # 数据库端口
-  username: root       # 数据库用户名
-  password: root       # 数据库密码
-  databaseName: dbname # 需要备份的数据库名称
+database:               # 数据库配置项
+  type: MySQL           # 需要备份的数据库类型：MySQL Oracle SQLServer PostgreSQL SQLite Hive
+  host: 127.0.0.1       # 数据库的地址
+  port: 3306            # 数据库端口
+  username: root        # 数据库用户名
+  password: root        # 数据库密码
+  databaseName: dbname  # 需要备份的数据库名称
   charset: utf-8
-  backMax: 20          # 备份保留的最大文件数
+  backMax: 20           # 备份保留的最大文件数
   table:
-    regEx: \w+         # 备份符合正则表达式的表名
-  cron: 53 * * * *     # 备份的时间表达式(五位数)
+    regEx: \w+          # 备份符合正则表达式的表名
+  cron: 53 * * * *      # 备份的时间表达式(五位数)
+
+remote:                 # 远程模块（主要将备份文件发送到远程主机）
+  host:                 # 远程备份主机地址，例如：192.168.50.50
+  username:             # 远程备份主机用户名，例如：root
+  password:             # 远程备份主机密码，例如：root
+
+notify:                 # 通知模块，通知定时备份任务状态
+  dingding:             # 钉钉通知
+  email:                # 邮箱通知
+
 ```
 ## 🛠️ 运行&部署
 ```shell
