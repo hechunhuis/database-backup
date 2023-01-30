@@ -13,16 +13,16 @@
 ## ✨ 特性
 - 支持的数据库列表
   - MySQL
-  - Oracle 待开发
-  - SQLServer 待开发
-  - PostgreSQL 待开发
-  - SQLite 待开发
-  - Hive 待开发
+  - Oracle (待开发)
+  - SQLServer (待开发)
+  - PostgreSQL (待开发)
+  - SQLite (待开发)
+  - Hive (待开发)
 - 支持自定义cron备份规则
 - 支持正则表达式匹配数据库表备份
 - 支持自定义保存备份文件数量
-- 支持将备份文件发送到远程备份主机（待开发）
-- 支持发送定时备份通知（待开发）
+- 支持将备份文件发送到远程备份主机 (待开发)
+- 支持发送定时备份通知 (待开发)
 ## ⚙️ 配置
 运行前需配置application.yml文件，信息如下：<br />
 注意：环境变量配置高于application.yml文件配置！
