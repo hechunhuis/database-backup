@@ -9,6 +9,9 @@
 <h4 align="center">基于Python3开发的轻量级数据库全量备份系统</h4>
 
 ![系统运行日志](./.github/static/images/log.jpg)
+<h1 align="center">
+  <img src="./.github/static/images/backfile.png" width="600"/>
+</h1>
 
 ## ✨ 特性
 - 支持的数据库列表
@@ -20,7 +23,7 @@
   - Hive (待开发)
 - 支持自定义cron备份规则
 - 支持正则表达式匹配数据库表备份
-- 支持自定义保存备份文件数量
+- 支持自定义保存备份文件最大数量
 - 支持将备份文件发送到远程备份主机 (待开发)
 - 支持发送定时备份通知 (待开发)
 ## ⚙️ 配置
